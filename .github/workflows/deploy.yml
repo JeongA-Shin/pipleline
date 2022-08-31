@@ -40,3 +40,15 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew build
         shell: bash
+        
+      ## 이제 CD를 위한 내용
+      - name: Make zip file #1파일을 압축
+        run: zip -qq -r ./$GITHUB_SHA.zip . #$GITHUB_SHA은 자체적으로 제공해주는 변수로, 중복을 회피하기 위해 사용
+        shell: bash
+
+      - name: Configure AWS credentials #2 Github Sercrets에 설정한 값들을 가져와 AWS에 인증
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.ACCESS_KEY_SECRET }}
+          aws-region: ap-northeast-2  #3) S3에 해당 압축 파일을 업로드합니다. region은 한국(ap-northeast-2)으로 설정해주었고, 저장할 폴더를 명시
