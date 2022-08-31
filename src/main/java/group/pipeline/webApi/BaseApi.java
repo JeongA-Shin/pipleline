@@ -17,7 +17,14 @@ public class BaseApi {
     @SneakyThrows
     //@ApiOperation("hello world")
     @GetMapping()
-    public String getList(){
+    public String hello(){
         return "Hello world";
+    }
+    
+    
+    @SneakyThrows
+    @GetMapping("/hi")
+    public String hi(){
+        return "hi hi hi";
     }
 }
