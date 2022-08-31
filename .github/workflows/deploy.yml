@@ -54,12 +54,12 @@ jobs:
           aws-region: ap-northeast-2
 
       - name: Upload to S3 #3
-        run: aws s3 cp --region ap-northeast-2 ./$GITHUB_SHA.zip s3://pipeline/$GITHUB_SHA.zip
+        run: aws s3 cp --region ap-northeast-2 ./$GITHUB_SHA.zip s3://bucketfordeployproject/$GITHUB_SHA.zip
 
       - name: Code Deploy
         run: aws deploy create-deployment --application-name newPiepeLine
           --deployment-config-name CodeDeployDefault.OneAtATime
           --deployment-group-name qa
-          --s3-location bucket=pipeline,bundleType=zip,key=$GITHUB_SHA.zip
+          --s3-location bucket=bucketfordeployproject,bundleType=zip,key=$GITHUB_SHA.zip
 
 
