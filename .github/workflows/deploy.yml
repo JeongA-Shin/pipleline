@@ -53,11 +53,13 @@ jobs:
           aws-secret-access-key: ${{ secrets.ACCESS_KEY_SECRET }}
           aws-region: us-east-1a
 
-      - name: Upload to S3 #3#3) S3에 해당 압축 파일을 업로드합니다. region은 한국(ap-northeast-2)으로 설정해주었고, 저장할 폴더를 명시
-          run: aws s3 cp --region ap-northeast-2 ./$GITHUB_SHA.zip s3://project/$GITHUB_SHA.zip
+      - name: Upload to S3 #3
+        run: aws s3 cp --region ap-northeast-2 ./$GITHUB_SHA.zip s3://project/$GITHUB_SHA.zip
 
-      - name: Code Deploy #4CodeDeploy를 시작
-          run: aws deploy create-deployment --application-name newPiepeLine
-            --deployment-config-name CodeDeployDefault.OneAtATime
-            --deployment-group-name qa
-            --s3-location bucket=project,bundleType=zip,key=$GITHUB_SHA.zip
+      - name: Code Deploy
+        run: aws deploy create-deployment --application-name newPiepeLine
+          --deployment-config-name CodeDeployDefault.OneAtATime
+          --deployment-group-name qa
+          --s3-location bucket=project,bundleType=zip,key=$GITHUB_SHA.zip
+
+
