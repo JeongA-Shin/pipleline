@@ -18,4 +18,5 @@ else
 fi
 
 echo "> $JAR_PATH 배포" #3
+sudo iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 80 -j REDIRECT --to-port 8080
 nohup java -jar /home/ubuntu/app/build/libs/pipeline-0.0.1-SNAPSHOT.jar > /dev/null 2> /dev/null < /dev/null &
